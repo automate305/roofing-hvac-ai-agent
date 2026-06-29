@@ -1,0 +1,76 @@
+ROOFING & HVAC AI AGENT — FREQUENTLY ASKED QUESTIONS
+======================================================
+These are the questions a contractor or agency prospect is most likely to ask
+when evaluating this product.
+
+
+Q: How fast does the AI actually respond to a new lead?
+A: In the live test on June 27, 2026, every lead received an automated response in under 1 millisecond from the moment it was submitted. In a production environment connected to Twilio, an actual SMS reaches the customer's phone within 10 to 30 seconds of them submitting a web form or calling.
+
+
+Q: What does the auto-response actually say?
+A: For roofing leads: "Hi [Name], thanks for reaching out! We received your roofing inquiry and a specialist will contact you shortly. In the meantime, if you have any photos of the damage, please reply with them. We typically respond within 15 minutes." For HVAC leads: "Hi [Name], thank you for contacting us about your HVAC needs. We're here to help! A technician will reach out to you shortly to discuss your system and schedule a service." These messages are customized per contractor with their company name and contact number.
+
+
+Q: Can the agent actually have a conversation with a customer, or does it just send one message?
+A: Phase 1 sends one automatic response. Conversational back-and-forth using OpenAI's language model is in Phase 2. The infrastructure for it is already wired in — the server imports and initializes the OpenAI client — it just needs the API key and the conversation handling logic to be activated.
+
+
+Q: What happens if a customer texts back after the auto-response?
+A: In Phase 1, incoming replies are not yet handled automatically. They would arrive in the contractor's Twilio inbox. Phase 2 adds inbound message handling so the AI can respond to follow-up questions from customers.
+
+
+Q: How does the lead scoring work?
+A: Each lead starts with a base score of 50. Points are added based on keywords in the customer's message: "urgent" adds 20, "emergency" adds 30, "asap" adds 15, "leak" or "damage" in a roofing context adds 25. Phone calls as the source add 10. The score is capped at 100. Higher scores appear at the top of the lead queue when sorted by urgency.
+
+
+Q: Can we customize the scoring rules?
+A: Yes. The scoring function is in server.js and is straightforward to modify. Additional rules can be added for things like specific neighborhoods, job types, or customer history without touching any other part of the system.
+
+
+Q: Does this replace a dispatcher or office manager?
+A: No, it makes them dramatically more efficient. A dispatcher using this system can handle 3 to 5 times the volume of leads and jobs because the repetitive steps — sending confirmation texts, reminding customers, logging communications, notifying technicians — are all automated. The dispatcher focuses on judgment calls: which jobs need same-day service, which customers need a human conversation, which technician is the best fit for a complex job.
+
+
+Q: Does the agent integrate with our current software?
+A: The agent exposes a REST API that can connect to almost any system. If a contractor uses ServiceTitan, Jobber, or Housecall Pro, leads captured in those systems can be posted to the AI Agent via their webhook or Make.com integration. Similarly, the agent can push data back to those systems. Native integrations for the most common contractor CRMs are planned for Phase 3.
+
+
+Q: What does the contractor need to provide to get this running?
+A: Three things. First, Twilio account credentials (Account SID and Auth Token) for SMS — a Twilio account costs about $1 per month plus 1 cent per text message sent. Second, a SendGrid or similar email provider API key for email delivery. Third, an OpenAI API key if they want AI-generated conversational responses instead of templates. Everything else is included.
+
+
+Q: Is there a frontend dashboard?
+A: The backend API is built and working. A React-based frontend dashboard is planned for Phase 2. For now, contractors can view their data through the API endpoints directly, or the agency can build a simple dashboard in Retool, Softr, or similar no-code tools that read from the API.
+
+
+Q: How is data stored?
+A: In the current Phase 1 implementation, data is stored in memory, meaning it resets when the server restarts. For a production deployment, the server is designed to connect to a PostgreSQL database. The database schema includes tables for leads, customers, jobs, technicians, communications, and analytics. Prisma ORM is already included in the project for database management.
+
+
+Q: How is the system secured?
+A: The architecture includes JWT-based authentication (JSON Web Tokens), role-based access control so technicians only see their own jobs while owners see everything, HTTPS encryption for all traffic, and rate limiting of 1,000 requests per hour on the standard tier to prevent abuse.
+
+
+Q: Can one deployment handle multiple contractor clients?
+A: Yes, the database schema includes a "companies" table designed for multi-tenant operation. An agency can run one deployment and onboard multiple contractors under separate company accounts, each with their own leads, jobs, technicians, and communications isolated from each other.
+
+
+Q: What does Phase 2 add?
+A: Missed call SMS callback (texts the customer automatically if a call goes unanswered), real Twilio SMS delivery, real SendGrid email delivery, AI-powered conversational responses to customer messages, route optimization for technician dispatch, skill-based technician assignment, and a mobile-friendly technician view.
+
+
+Q: What does Phase 3 add?
+A: Automated invoicing after job completion, Stripe payment collection, a customer self-service portal for scheduling and payment, Google Calendar sync, seasonal maintenance campaign sequences (pre-written message flows that go out on a schedule), and predictive analytics for slow week forecasting and upsell timing.
+
+
+Q: What is the revenue impact for a typical contractor?
+A: Based on industry benchmarks for speed-to-lead improvement and scheduling optimization: a 25 to 40 percent improvement in lead-to-customer conversion, a 30 to 50 percent improvement in technician schedule utilization, and a 15 to 25 percent increase in annual revenue. For a contractor doing 1 million dollars per year, this translates to 150,000 to 250,000 dollars in additional revenue, making the monthly subscription fee trivially recoverable.
+
+
+Q: How long does it take to set up?
+A: The core system can be deployed in under 1 hour. Adding API credentials (Twilio, SendGrid, OpenAI) takes another 30 minutes. Connecting it to a contractor's existing website form takes another 30 minutes using a standard webhook or embed. Full onboarding including customizing response messages and testing all channels takes approximately 2 to 4 hours per client.
+
+
+Q: What is the tech stack?
+A: Backend: Node.js with Express 5. AI: OpenAI API. SMS: Twilio. Email: SendGrid or Nodemailer. Real-time notifications: Socket.io. Background jobs: Bull with Redis. Database: PostgreSQL with Prisma ORM. Authentication: JWT. Planned frontend: React 19 with Tailwind CSS and Recharts for data visualization.

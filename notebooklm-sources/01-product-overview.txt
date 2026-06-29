@@ -1,0 +1,89 @@
+ROOFING & HVAC AI AGENT — PRODUCT OVERVIEW
+==========================================
+Last Updated: June 27, 2026
+Project: automate305/roofing-hvac-ai-agent
+Status: Phase 1 Live — All endpoints tested and confirmed working
+
+
+WHAT IS THIS PRODUCT?
+---------------------
+The Roofing & HVAC AI Agent is a backend automation system built specifically for roofing and HVAC service contractors. It handles the repetitive, manual, and administrative work that causes contractors to lose booked jobs every day: missed calls, slow lead follow-up, manual dispatching, forgotten appointment reminders, and no invoicing automation.
+
+The system is a REST API server built with Node.js and Express that runs on port 3001. It can be connected to any frontend dashboard, CRM, website contact form, or third-party tool like Make.com or Zapier.
+
+The product targets small to mid-size roofing and HVAC companies — typically 2 to 20 technicians — that are growing faster than their admin capacity can support.
+
+
+WHO THIS IS FOR
+---------------
+Primary Customer: Roofing contractors and HVAC service companies with 2–20 technicians.
+
+Secondary Customer: Agencies building white-label automation products for trades contractors.
+
+The ideal customer profile:
+- Owner-operator who is also the primary dispatcher and salesperson
+- Getting 10–50 inbound leads per week from multiple channels (web, phone, social media)
+- Losing leads because response time is too slow (calling back hours later instead of minutes)
+- Scheduling jobs manually via phone calls between the office and technicians
+- Sending appointment reminders manually or not at all
+- No visibility into which lead sources are performing, which technicians are most efficient, or what their average job value is
+
+
+THE FIVE PROBLEMS THIS SOLVES
+------------------------------
+
+Problem 1: Speed-to-Lead Response
+Research shows that responding to a lead within 5 minutes makes conversion 100x more likely versus responding after 30 minutes. Most contractors call back hours later, sometimes the next day. By that time the customer has called three competitors. The AI Agent responds to every lead automatically within 60 seconds, 24 hours a day, 7 days a week.
+
+Problem 2: Lead Management and Follow-Up
+Without a system, leads come in from multiple places — the company website, Google Business Profile, phone calls, Facebook ads, referrals — and there is no unified way to track them. Leads fall through the cracks. The AI Agent captures every lead in one place, scores it by urgency, assigns it to the right technician, and tracks its status from first contact to job completion.
+
+Problem 3: Manual Scheduling and Dispatching
+Owners spend hours every day calling technicians to dispatch jobs, checking availability, and rescheduling. The AI Agent handles scheduling in one API call and dispatches directly to the assigned technician with an automatic notification.
+
+Problem 4: Customer Communication Gaps
+Customers don't get confirmation texts. They don't get reminder calls before the appointment. They forget about the job and aren't home when the technician arrives, wasting the technician's time and the company's money. The AI Agent sends automated SMS and email confirmations the moment a job is booked, plus 24-hour reminders.
+
+Problem 5: No Business Visibility
+Most small contractors don't know their lead conversion rate, average response time, average job value, or which marketing channel brings their best customers. The AI Agent tracks all of this automatically and provides real-time analytics via API.
+
+
+INDUSTRIES SERVED
+-----------------
+Roofing: Emergency storm damage repair, full roof replacement, inspections, gutter services, flat roof maintenance, insurance claim work.
+
+HVAC: Emergency AC and heat failure, annual maintenance contracts, new system installation, tune-ups, duct cleaning, indoor air quality.
+
+Both industries share the same core workflow: inbound lead → estimate → scheduled job → dispatched technician → completed job → follow-up and review request. The AI Agent handles all stages of this workflow.
+
+
+CORE VALUE PROPOSITION
+-----------------------
+For a roofing or HVAC company doing $500,000 to $2,000,000 per year in revenue, the typical impact of deploying this system is:
+
+- 25 to 40 percent improvement in lead-to-customer conversion rate
+- 30 to 50 percent improvement in technician schedule utilization
+- 20 to 30 percent improvement in customer satisfaction scores
+- 15 to 25 percent increase in annual revenue
+
+These numbers come from industry benchmarks on speed-to-lead response improvement and scheduling optimization. The primary driver is the instant response capability — capturing leads that would otherwise go cold.
+
+
+BUSINESS MODEL OPTIONS
+-----------------------
+This product can be deployed three ways:
+
+1. SaaS Subscription: Contractor pays a monthly fee ($297–$997/month) for access to the automation system. Margins are high because the core system is already built.
+
+2. Agency White-Label: The agency brands the product under their name and resells it to contractor clients. The agency sets pricing and keeps the margin.
+
+3. Done-For-You Service: Agency deploys, configures, and manages the system for each contractor client. Charges setup fee ($1,500–$5,000) plus monthly retainer ($500–$1,500).
+
+
+CURRENT STATUS (JUNE 2026)
+---------------------------
+Phase 1 is live and all core endpoints are working. The system was tested on June 27, 2026 with three live leads across roofing and HVAC service types. All automated responses, scoring, dispatching, and communication endpoints performed correctly.
+
+Phase 2 is in development. Phase 3 is planned.
+
+See the separate source documents for live demo results, API reference, and the full technical setup guide.

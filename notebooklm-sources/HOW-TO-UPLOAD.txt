@@ -1,0 +1,85 @@
+HOW TO UPLOAD THESE FILES TO NOTEBOOKLM
+========================================
+URL: https://notebooklm.google.com
+Sign in with your Google account.
+
+
+STEP 1 — CREATE A NEW NOTEBOOK
+--------------------------------
+1. Click "+ New Notebook"
+2. Name it: "Roofing & HVAC AI Agent"
+3. Click Create
+
+
+STEP 2 — ADD ALL 5 SOURCE FILES
+---------------------------------
+For each .txt file below, click "+ Add Source" then choose "Upload file":
+
+1. 01-product-overview.txt
+   - What the product is, who it's for, the five problems it solves, business model options
+
+2. 02-live-demo-results.txt
+   - Actual test results from June 27, 2026 — every lead, score, response time, and analytics output
+
+3. 03-capabilities-by-use-case.txt
+   - What the agent does for roofing companies and HVAC companies, scenario by scenario
+
+4. 04-faq.txt
+   - 18 Q&As covering every question a contractor prospect is likely to ask
+
+5. 05-roadmap-and-integrations.txt
+   - Phase 1/2/3 feature breakdown, Twilio/SendGrid/OpenAI/Stripe requirements, Make.com scenarios
+
+Upload all 5. NotebookLM synthesizes across all sources when answering questions.
+
+
+STEP 3 — SUGGESTED FIRST PROMPTS TO TRY
+-----------------------------------------
+After uploading, try these in the chat panel:
+
+"Create a sales one-pager I can send to a roofing contractor."
+
+"What are the most important things to tell an HVAC company owner about this system?"
+
+"Write a 60-second elevator pitch for this product."
+
+"What does Phase 2 add and how long will it take?"
+
+"Generate a FAQ for a skeptical contractor who's never used software before."
+
+"What integrations are needed and what do they cost?"
+
+"Compare what this does for roofing companies vs HVAC companies."
+
+"Create a checklist for onboarding a new contractor client."
+
+"Write an email I can send to a roofing company introducing this product."
+
+"What are the known gaps and when will they be fixed?"
+
+
+STEP 4 — USE THE NOTEBOOK GUIDE FEATURE
+-----------------------------------------
+Click "Notebook Guide" in the right panel. NotebookLM will auto-generate:
+- A summary of all sources
+- Key topics
+- An FAQ based on the content
+- A study guide / briefing document
+
+These are useful as pitch decks, client handouts, or internal training documents.
+
+
+STEP 5 — GENERATE AN AUDIO OVERVIEW
+--------------------------------------
+Click "Audio Overview" in the Notebook Guide panel. NotebookLM will create a 10-15 minute podcast-style conversation between two AI hosts explaining the product. Useful for:
+- Playing for a contractor prospect during a call
+- Training your sales team
+- Personal review while commuting
+
+
+SOURCE FILE LOCATIONS (LOCAL)
+-------------------------------
+All files are in: /home/user/roofing-hvac-ai-agent/notebooklm-sources/
+
+Repository: automate305/roofing-hvac-ai-agent
+Branch: claude/test-agent-capabilities-3tqg7f

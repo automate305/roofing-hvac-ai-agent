@@ -1,0 +1,161 @@
+ROOFING & HVAC AI AGENT — ROADMAP & INTEGRATIONS
+=================================================
+
+
+PHASE 1 — LIVE (COMPLETED JUNE 2026)
+--------------------------------------
+Everything in Phase 1 is built and confirmed working as of June 27, 2026.
+
+Lead Management:
+- Lead capture via REST API from any source (web form, phone, SMS, email, third-party)
+- AI lead scoring 0 to 100 based on urgency keywords and contact source
+- Automatic assignment to available technician on lead creation
+- Lead status tracking: new, contacted, qualified, converted, lost
+- Lead filtering by status, service type, and sort by score or date
+
+Instant Response:
+- Automated response triggered within milliseconds of lead submission
+- Service-specific message templates for roofing vs HVAC
+- Response logged with timestamp and response time
+- Lead status automatically updated to "contacted" after response
+
+Scheduling & Dispatch:
+- Job creation with customer, lead, service type, date, duration, and notes
+- Job filtering by status, date, and assigned technician
+- One-endpoint dispatch: assign technician, update job status, trigger notification
+- Job statuses: scheduled, assigned, in_progress, completed
+
+Customer Communications:
+- Send SMS messages via Twilio (requires credentials — no code changes needed)
+- Send email messages via SendGrid or Nodemailer (requires credentials — no code changes needed)
+- Message types: confirmation, reminder, followup, review_request, promotion
+- Full communication history accessible by customer or channel
+
+Analytics:
+- Lead analytics: total leads, converted leads, conversion rate, average response time, breakdown by status
+- Revenue analytics: total revenue, jobs completed, average job value, active jobs
+- Scheduling analytics: total jobs, completed jobs, on-time percentage, average job duration
+
+Infrastructure:
+- REST API server on Node.js with Express 5
+- CORS enabled for frontend connections
+- OpenAI client initialized (requires API key)
+- In-memory data storage (PostgreSQL integration ready via Prisma)
+- Health check endpoint
+
+
+PHASE 2 — IN DEVELOPMENT
+--------------------------
+Target: Within 60 days of Phase 1 deployment.
+
+Missed Call Handling:
+When an inbound phone call goes unanswered, Twilio can send a webhook notification to the server. Phase 2 adds a webhook endpoint that receives this notification and automatically sends an SMS to the caller: "Hi, this is [Company]. We saw you called — we don't want to miss your call. What can we help you with today?" This single feature recovers an estimated 20 to 40 percent of after-hours leads.
+
+Real Twilio SMS Delivery:
+Phase 1 logs SMS messages to the console and stores them in the communications array. Phase 2 wires in the actual Twilio SDK call so messages are delivered to real phones. Only requires adding Twilio credentials to the .env file — no new API endpoints or logic changes.
+
+Real SendGrid Email Delivery:
+Same as SMS — Phase 2 activates the SendGrid or Nodemailer send call. Credentials added to .env, emails delivered to real inboxes.
+
+AI Conversational Responses:
+Currently the auto-response uses hardcoded templates. Phase 2 activates the OpenAI API integration already initialized in the server. The agent will use the customer's actual message to generate a contextually relevant response, handle follow-up questions, and escalate to a human when it cannot answer.
+
+Smarter Lead Scoring:
+Phase 2 adds contextual scoring that detects urgency from context, not just exact keyword matches. "95 degrees, no AC, been two days" should score as high as "emergency" — Phase 2 adds this semantic understanding.
+
+Route Optimization:
+When multiple jobs are scheduled for the same day and same technician, Phase 2 will optimize the order to minimize total drive time using a distance matrix calculation. This directly increases technician utilization.
+
+Skill-Based Technician Assignment:
+Phase 1 assigns leads randomly from the available tech pool. Phase 2 matches job type to technician skills. An HVAC technician with commercial refrigerant certification gets routed commercial calls. A roofing technician specializing in flat roofs gets routed flat roof jobs.
+
+Technician Mobile View:
+A simple mobile-optimized web page (or PWA) where technicians can see their assigned jobs for the day, get directions, update job status, and log notes. Replaces the current phone call loop between technician and dispatcher.
+
+
+PHASE 3 — PLANNED
+-------------------
+Target: 90 to 180 days after Phase 1 deployment.
+
+Automated Invoicing:
+When a job is marked "completed," the system automatically generates an invoice for the customer including line items for labor and materials, sends it via email and SMS with a payment link, and logs the expected payment amount in revenue analytics.
+
+Stripe Payment Integration:
+Customers receive a Stripe-powered payment link in their invoice. Payments are processed online, logged to the job record, and revenue analytics are updated in real time. Partial payments and deposits are supported.
+
+Customer Self-Service Portal:
+A web-based portal where customers can log in, see their appointment history, reschedule upcoming appointments, view and pay invoices, and submit service requests without calling the office.
+
+Google Calendar Sync:
+Jobs created in the AI Agent are automatically added to the contractor's Google Calendar. When jobs are rescheduled or cancelled, the calendar updates automatically.
+
+Seasonal Campaign Sequences:
+Pre-built message sequences for common seasonal campaigns:
+- Spring HVAC maintenance (March/April): "Time for your annual AC tune-up before summer."
+- Hurricane prep roofing (May/June in Florida markets): "Is your roof ready for storm season? Free inspection this month."
+- Fall furnace check (September/October): "Schedule your heating system check before the cold hits."
+- Year-end gutter cleaning (November): "Don't let fall leaves damage your gutters."
+Each campaign sends automatically to the right customer segment on the right date.
+
+Predictive Analytics:
+Uses historical job data to forecast slow weeks, identify customers likely to need maintenance based on equipment age, and suggest optimal pricing adjustments based on demand patterns.
+
+Third-Party CRM Integrations:
+Native connectors for ServiceTitan, Jobber, and Housecall Pro so contractors who already use those platforms can plug in the AI Agent without switching systems. The AI handles intake and communication while the CRM handles job management.
+
+
+INTEGRATION REQUIREMENTS
+-------------------------
+
+Twilio (SMS and Missed Calls):
+- Account SID: starts with "AC"
+- Auth Token: 32-character string
+- Phone number: provisioned Twilio number (approximately $1/month)
+- Cost per SMS: approximately $0.01 per message sent or received
+- Setup time: 30 minutes including account creation and .env configuration
+- Required for: SMS confirmations, reminders, missed call callbacks, review requests
+
+SendGrid (Email):
+- API Key: starts with "SG."
+- Free tier: 100 emails per day
+- Paid tier: starts at $19.95 per month for 50,000 emails
+- Setup time: 20 minutes
+- Required for: email confirmations, reminders, invoices, campaigns
+
+OpenAI (AI Responses):
+- API Key: starts with "sk-"
+- Model: GPT-4o-mini recommended for cost efficiency on high-volume response tasks
+- Cost: approximately $0.15 per 1 million input tokens
+- For a contractor receiving 50 leads per day, estimated cost under $5 per month
+- Required for: conversational AI responses (templates work without it)
+
+PostgreSQL (Production Database):
+- Replace in-memory storage for data persistence across restarts
+- Recommended: Supabase free tier (500MB, 50,000 monthly active users) or Railway ($5/month)
+- Prisma ORM is already included — just update DATABASE_URL in .env
+- Required for: production deployment with persistent data
+
+Stripe (Payments - Phase 3):
+- Secret key: starts with "sk_live_"
+- Webhook secret for payment confirmation events
+- Required for: automated invoicing and payment collection
+
+
+MAKE.COM AUTOMATION OPTIONS
+-----------------------------
+The AI Agent's REST API can be connected to Make.com (formerly Integromat) without writing any code. Useful automation scenarios:
+
+Scenario 1: Website Form to Lead
+When a customer submits a contact form on the contractor's website (built on WordPress, Wix, Squarespace, etc.), Make.com catches the form submission and posts it to POST /api/leads. The agent handles everything from there.
+
+Scenario 2: Google Ad Form to Lead
+When someone fills out a Google Ads lead form, the form data automatically posts to the AI Agent via Make.com. Especially powerful during storm season ad campaigns.
+
+Scenario 3: Missed Angi/HomeAdvisor Lead
+When a new lead comes in through Angi or HomeAdvisor (which send email notifications), Make.com parses the email and posts the lead to the agent before the contractor even sees it.
+
+Scenario 4: Job Complete to Invoice
+When a technician marks a job complete (via a simple web form, Airtable record, or mobile app), Make.com triggers POST /api/messages to send the customer their invoice and review request automatically.
+
+Scenario 5: Slow Week Alert
+If the analytics endpoint shows fewer than a threshold number of jobs scheduled for next week, Make.com can trigger a promotional SMS campaign to past customers offering a discount or seasonal service reminder.

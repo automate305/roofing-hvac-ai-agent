@@ -1,0 +1,71 @@
+ROOFING & HVAC AI AGENT — CAPABILITIES BY USE CASE
+====================================================
+This document describes what the agent can do for each type of contractor,
+organized by the real-world tasks and scenarios they face daily.
+
+
+ROOFING COMPANY USE CASES
+--------------------------
+
+Use Case: Storm Season Lead Surge
+When a hurricane, hailstorm, or major rain event hits a market, roofing companies receive 5 to 20 times their normal lead volume in 24 to 48 hours. Without automation, most of those leads go unanswered or are called back too late. The AI Agent captures and responds to every lead instantly regardless of volume. It scores storm-related leads (leaks, damage, emergency keywords) at 75 to 100 out of 100 and puts them at the top of the dispatcher's queue. A company that might manually handle 10 leads per day can now handle 100 with the same office staff.
+
+Use Case: Insurance Claim Jobs
+Homeowners dealing with insurance claims need documentation and fast response because the adjuster may only be available on short notice. The AI Agent can be configured to ask for claim number and insurance company in the intake form, log that information with the lead, and assign it to technicians who are certified for insurance documentation work. Follow-up messaging can include specific language about working with insurance adjusters.
+
+Use Case: Pre-Sale Roof Inspections
+Real estate transactions create a reliable volume of roof inspection requests. These leads are lower urgency but high volume and easy to schedule. The agent scores them at 50 and routes them to the next available technician without requiring immediate dispatch. Automated reminders reduce no-shows, which are common in inspection jobs.
+
+Use Case: Maintenance Reminder Campaigns
+After completing a roof job, the agent can be used to send automated 1-year, 3-year, and 5-year maintenance reminders to past customers. This is Phase 3 functionality but the messaging infrastructure is already live.
+
+Use Case: After-Hours Missed Calls
+When a homeowner calls at 9pm about a roof leak and nobody answers, they move on. The AI Agent can be connected to a missed call system (via Twilio in Phase 2) so that any unanswered call triggers an automatic text message back: "Hi, this is [Company Name]. We saw you called about roofing and we want to help. Can you describe your issue?" This alone recovers 20 to 40 percent of after-hours leads that would otherwise be lost.
+
+
+HVAC COMPANY USE CASES
+-----------------------
+
+Use Case: Emergency Breakdowns in Extreme Weather
+In summer heat waves or winter cold snaps, HVAC companies get flooded with emergency calls. AC not working in 95-degree heat and furnace not working in freezing temperatures are the highest-urgency scenarios. The agent can be configured to auto-dispatch an on-call technician immediately for messages containing specific keywords without any human review step in between.
+
+Use Case: Annual Maintenance Contract Renewals
+HVAC companies with maintenance contract programs (typically $150 to $300 per year for biannual tune-ups) need to remind customers when their service is due. The messaging system can send these reminders automatically: spring AC tune-up reminders in March and April, fall furnace check reminders in September and October.
+
+Use Case: New System Installation Leads
+A homeowner asking about a new system installation is typically a $5,000 to $15,000 job. These leads should be scored as high-priority and routed directly to a salesperson or senior technician for a same-day callback, not just a generic auto-response. The agent routes based on service type and urgency score, so installation requests from phone sources can automatically get a higher score and priority routing.
+
+Use Case: Technician Dispatch Efficiency
+HVAC companies waste technician time when dispatch is done by phone. A tech finishes a job, calls the office, waits for the dispatcher to look up the next job and read the details, writes down the address, and drives there. The agent's dispatch endpoint pushes the full job details to the technician directly (via SMS notification or mobile app in Phase 2) the moment the job is assigned. No phone call required.
+
+Use Case: Post-Service Review Requests
+HVAC companies live and die by Google reviews. After a job is completed, the agent can automatically send a review request text to the customer: "Hi [Name], hope everything is working great! If you have a moment, we'd love a Google review — it helps our small business a lot. [link]" Sending this within 2 hours of job completion captures maximum satisfaction while the positive experience is fresh.
+
+
+SHARED USE CASES (BOTH INDUSTRIES)
+------------------------------------
+
+Use Case: Lead Qualification Before Dispatch
+Not every inbound lead deserves an immediate technician visit. The scoring system differentiates between a 100-score emergency and a 50-score inspection. The agent routes emergencies to immediate dispatch and lower-priority leads to a standard scheduling queue, preventing expensive emergency slots from being used for routine work.
+
+Use Case: Multi-Channel Lead Consolidation
+A contractor may get leads from: company website contact form, Google Business Profile calls, Facebook ads, Angi or HomeAdvisor, word-of-mouth referrals, and walk-in phone calls. All of these can be routed into the same /api/leads endpoint with the "source" field indicating the channel. This gives the owner a single view of all leads and lets them see which channels are performing best via the analytics endpoint.
+
+Use Case: Customer Communication Timeline
+Every customer interaction is logged in the communications endpoint. If a customer calls and asks "what time is my appointment?" the office can pull up their full communication history in seconds: when they first contacted, what auto-response they got, when the confirmation was sent, when the reminder was sent.
+
+Use Case: Technician Performance Visibility
+Phase 2 will add per-technician analytics. Owners will be able to see which technicians close the most jobs, have the best on-time rates, generate the most repeat business, and receive the highest customer satisfaction scores. This makes performance reviews and compensation decisions objective instead of based on gut feel.
+
+
+WHAT THE AGENT DOES NOT DO (YET)
+----------------------------------
+The following capabilities are planned but not yet built:
+
+- It does not make phone calls or answer calls autonomously. Missed call handling via Twilio SMS callback is in Phase 2.
+- It does not generate quotes or estimates. Quote generation with Stripe payment integration is in Phase 3.
+- It does not send invoices automatically. Invoicing automation is in Phase 3.
+- It does not connect to Google Calendar or Calendly natively. Calendar integration is in Phase 3.
+- It does not have a customer-facing portal where homeowners can self-schedule. This is Phase 3.
+- It does not have a mobile app for technicians yet. A technician mobile view is in Phase 2.
+- It does not integrate with existing CRMs like ServiceTitan, Jobber, or Housecall Pro natively. API bridge connections are possible via Make.com or Zapier today.
